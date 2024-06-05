@@ -48,9 +48,30 @@ Avant la fusion des communes, Rouge-Thier faisait partie de la commune de Louvei
 * **Minimum Human Design:** Seamlessly switch between offline translation and simultaneous interpretation **by adjusting the chunk size**.
 * **End-to-End:** Generate target speech **without** target text decoding.
 
-## Sources
+# Sources and Usage
+## Model
+> [!NOTE]
+> We release French-to-English speech-to-speech translation models trained on the CVSS-C dataset to reproduce results in our paper. You can train models in your desired languages by following the instructions provided below.
 
+| Chunk Size | checkpoint | ASR-BLEU | ASR-BLEU (Silence Removed) | Average Lagging                                                                             |
+| ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |---------------------------------------------------------------- |
+| 320ms    | [🤗 Model card](https://huggingface.co/ictnlp) - [checkpoint](https://huggingface.co/ictnlp) | 19.67 |  24.90 | -393ms  |
+| 2560ms    | [🤗 Model card](https://huggingface.co/ictnlp) - [checkpoint](https://huggingface.co/ictnlp) | 24.88 | 26.14 |  4976ms  |
+| Offline    | [🤗 Model card](https://huggingface.co/ictnlp) - [checkpoint](https://huggingface.co/ictnlp) | 25.82 | -  | -   |
 
+| Quantizer | Vocoder |
+| --- | --- |
+|[checkpoint](https://huggingface.co/ictnlp) | [checkpoint](https://huggingface.co/ictnlp)|
+
+## Inference
+### Offline Inference
+* **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/main/Preprocessing.md).
+* **Generate Acoustic Unit**: Excute [``offline_s2u_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/offline_s2u_infer.sh)
+* **Generate Waveform**: Excute [``offline_wav_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/offline_wav_infer.sh)
+> [!WARNING]
+> Before executing [``offline_s2u_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/offline_s2u_infer.sh) and [``offline_wav_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/offline_wav_infer.sh), please ensure to replace the variables in the file with the paths specific to your machine.
+* **Evaluation**: Using Fairseq's [ASR-BLEU evaluation toolkit](https://github.com/facebookresearch/fairseq/tree/main/examples/speech_to_speech/asr_bleu)
+### Simultaneous Inference
 
 
 
