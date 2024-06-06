@@ -3,6 +3,10 @@
 <img src="https://github.com/ictnlp/NAST-S2x/assets/43530347/02d6dea6-5887-459e-9938-bc510b6c850c"/>  
 </p>
 
+
+> [!NOTE]
+> This repo is under construction. Stay tuned.
+
 ## Features
 * 🤖 **An end-to-end model without intermediate text decoding**
 * 💪 **Supports offline and streaming decoding of all modalities**
@@ -29,13 +33,15 @@ Avant la fusion des communes, Rouge-Thier faisait partie de la commune de Louvei
 ## Performance
 
 * ⚡️ **Lightning Fast**: 28× faster inference and competitive quality in offline speech-to-speech translation
-* 👩‍💼 **Simultaneous Decoding**: Support end-to-end text & speech generation in a unified framework
+* 👩‍💼 **Simultaneous**: Achieves high-quality simultaneous interpretation within a delay of less than 3 seconds
+* 🤖 **Unified Framework**: Support end-to-end text & speech generation in one model
  
   
 **Check Details** 👇
   Offline-S2S          |  Simul-S2S   |  Simul-S2T
 :-------------------------:|:-------------------------:|:-------------------------:
-![image](https://github.com/ictnlp/NAST-S2x/assets/43530347/abf6931f-c6be-4870-8f58-3a338e3b2b5c)| ![image](https://github.com/ictnlp/NAST-S2x/assets/43530347/631ecc44-748a-4ac9-bd1a-2d8563336a1c) | ![image](https://github.com/ictnlp/NAST-S2x/assets/43530347/adcbaedf-7740-405e-a139-2ab2fec63481)
+![image](https://github.com/ictnlp/NAST-S2x/assets/43530347/abf6931f-c6be-4870-8f58-3a338e3b2b5c)| ![image](https://github.com/ictnlp/NAST-S2x/assets/43530347/9a57bf02-c606-4a78-af3e-1c0d1f25d27e) | ![image](https://github.com/ictnlp/NAST-S2x/assets/43530347/6ecfe401-770c-4dc0-9c50-e76a8c20b84b)
+
 
 
 
@@ -56,6 +62,7 @@ Avant la fusion des communes, Rouge-Thier faisait partie de la commune de Louvei
 | Chunk Size | checkpoint | ASR-BLEU | ASR-BLEU (Silence Removed) | Average Lagging                                                                             |
 | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |---------------------------------------------------------------- |
 | 320ms    | [🤗 Model card](https://huggingface.co/ictnlp) - [checkpoint](https://huggingface.co/ictnlp) | 19.67 |  24.90 | -393ms  |
+| 1280ms    | [🤗 Model card](https://huggingface.co/ictnlp) - [checkpoint](https://huggingface.co/ictnlp) | 20.20 | 25.71 | 3330ms |
 | 2560ms    | [🤗 Model card](https://huggingface.co/ictnlp) - [checkpoint](https://huggingface.co/ictnlp) | 24.88 | 26.14 |  4976ms  |
 | Offline    | [🤗 Model card](https://huggingface.co/ictnlp) - [checkpoint](https://huggingface.co/ictnlp) | 25.82 | -  | -   |
 
@@ -72,9 +79,38 @@ Avant la fusion des communes, Rouge-Thier faisait partie de la commune de Louvei
 > Before executing [``offline_s2u_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/offline_s2u_infer.sh) and [``offline_wav_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/offline_wav_infer.sh), please ensure to replace the variables in the file with the paths specific to your machine.
 * **Evaluation**: Using Fairseq's [ASR-BLEU evaluation toolkit](https://github.com/facebookresearch/fairseq/tree/main/examples/speech_to_speech/asr_bleu)
 ### Simultaneous Inference
+* Simultaneous Inference need the SimulEval
+* **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/main/Preprocessing.md).
+* **Streaming Generation and Evaluation**: Excute [``streaming_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/streaming_infer.sh)
 
+## Train your own NAST-S2X
+* **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/main/Preprocessing.md).
+* **CTC Pretraining**: Excute [``train_ctc.sh``](https://github.com/ictnlp/NAST-S2x/main/train_scripts/train_ctc.sh)
+* **NMLA Training**: Excute [``train_nmla.sh``](https://github.com/ictnlp/NAST-S2x/main/train_scripts/train_nmla.sh)
 
+## Citing
 
+Please kindly cite us if you find our papers or codes useful.
+
+```
+@inproceedings{
+ma2024nonautoregressive,
+title={A Non-autoregressive Generation Framework for End-to-End Simultaneous Speech-to-Any Translation},
+author={Ma, Zhengrui and Fang, Qingkai and Zhang, Shaolei and Guo, Shoutao and Feng, Yang and Zhang, Min
+},
+booktitle={Proceedings of ACL 2024},
+year={2024},
+}
+
+@inproceedings{
+fang2024ctcs2ut,
+title={CTC-based Non-autoregressive Textless Speech-to-Speech Translation},
+author={Fang, Qingkai and Ma, Zhengrui and Zhou, Yan and Zhang, Min and Feng, Yang
+},
+booktitle={Proceedings of ACL 2024},
+year={2024},
+}
+```
 
 
 
