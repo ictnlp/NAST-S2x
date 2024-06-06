@@ -1,3 +1,6 @@
 [submodule "fairseq"]
 	path = fairseq
 	url = git@github.com:facebookresearch/fairseq.git
+[submodule "SimulEval"]
+	path = SimulEval
+	url = git@github.com:Paulmzr/SimulEval.git
