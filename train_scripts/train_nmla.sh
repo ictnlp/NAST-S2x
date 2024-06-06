@@ -1,14 +1,13 @@
-CHUNK_SIZE=
+CHUNK_SIZE=32  #32 stands for 320ms
 
-EXP_DIR=
-CVSS_ROOT=
-CHECKPOINT_DIR=
-CTC_PRETRAINED_PATH=
-
+CVSS_ROOT=path_to_your_data
+CHECKPOINT_DIR=path_to_save_your_checkpoint
+CTC_PRETRAINED_PATH=path_to_your_ctcpretrained_model
+NAST_DIR=path_to_nast_dir
 
 fairseq-train ${CVSS_ROOT}/fr-en/fbank2unit \
     --config-yaml config.yaml --train-subset train --valid-subset dev \
-    --user-dir fs_plugins \
+    --user-dir ${NAST_DIR} \
     --fp16 \
     --finetune-from-model ${CTC_PRETRAINED_PATH} \
     --task nat_speech_to_unit_ctc_modified --arch nonautoregressive_streaming_speech_to_unit_transformer_segment_to_segment \
