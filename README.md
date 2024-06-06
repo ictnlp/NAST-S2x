@@ -1,7 +1,7 @@
 # NAST-S2X: A Fast and End-to-End Simultaneous Speech-to-Any Translation Model
-<p align="center">
+<!--<p align="center">
 <img src="https://github.com/ictnlp/NAST-S2x/assets/43530347/02d6dea6-5887-459e-9938-bc510b6c850c"/>  
-</p>
+</p> -->
 
 
 > [!NOTE]
