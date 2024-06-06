@@ -72,21 +72,21 @@ Avant la fusion des communes, Rouge-Thier faisait partie de la commune de Louvei
 
 ## Inference
 ### Offline Inference
-* **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/main/Preprocessing.md).
-* **Generate Acoustic Unit**: Excute [``offline_s2u_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/offline_s2u_infer.sh)
-* **Generate Waveform**: Excute [``offline_wav_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/offline_wav_infer.sh)
+* **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/blob/main/Preprocessing.md).
+* **Generate Acoustic Unit**: Excute [``offline_s2u_infer.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/test_scripts/offline_s2u_infer.sh)
+* **Generate Waveform**: Excute [``offline_wav_infer.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/test_scripts/offline_wav_infer.sh)
 > [!WARNING]
-> Before executing [``offline_s2u_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/offline_s2u_infer.sh) and [``offline_wav_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/offline_wav_infer.sh), please ensure to replace the variables in the file with the paths specific to your machine.
+> Before executing [``offline_s2u_infer.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/test_scripts/offline_s2u_infer.sh) and [``offline_wav_infer.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/test_scripts/offline_wav_infer.sh), please ensure to replace the variables in the file with the paths specific to your machine.
 * **Evaluation**: Using Fairseq's [ASR-BLEU evaluation toolkit](https://github.com/facebookresearch/fairseq/tree/main/examples/speech_to_speech/asr_bleu)
 ### Simultaneous Inference
 * Simultaneous Inference need the SimulEval
-* **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/main/Preprocessing.md).
-* **Streaming Generation and Evaluation**: Excute [``streaming_infer.sh``](https://github.com/ictnlp/NAST-S2x/main/test_scripts/streaming_infer.sh)
+* **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/blob/main/Preprocessing.md).
+* **Streaming Generation and Evaluation**: Excute [``streaming_infer.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/test_scripts/streaming_infer.sh)
 
 ## Train your own NAST-S2X
-* **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/main/Preprocessing.md).
-* **CTC Pretraining**: Excute [``train_ctc.sh``](https://github.com/ictnlp/NAST-S2x/main/train_scripts/train_ctc.sh)
-* **NMLA Training**: Excute [``train_nmla.sh``](https://github.com/ictnlp/NAST-S2x/main/train_scripts/train_nmla.sh)
+* **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/blob/main/Preprocessing.md).
+* **CTC Pretraining**: Excute [``train_ctc.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/train_scripts/train_ctc.sh)
+* **NMLA Training**: Excute [``train_nmla.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/train_scripts/train_nmla.sh)
 
 ## Citing
 
