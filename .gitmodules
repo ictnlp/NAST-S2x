@@ -1,0 +1,3 @@
+[submodule "fairseq"]
+	path = fairseq
+	url = git@github.com:facebookresearch/fairseq.git
