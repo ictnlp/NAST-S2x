@@ -71,12 +71,13 @@ Avant la fusion des communes, Rouge-Thier faisait partie de la commune de Louvei
 |[checkpoint](https://huggingface.co/ictnlp) | [checkpoint](https://huggingface.co/ictnlp)|
 
 ## Inference
+> [!WARNING]
+> Before executing all the provided shell scripts, please ensure to replace the variables in the file with the paths specific to your machine.
+
 ### Offline Inference
 * **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/blob/main/Preprocessing.md).
 * **Generate Acoustic Unit**: Excute [``offline_s2u_infer.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/test_scripts/offline_s2u_infer.sh)
 * **Generate Waveform**: Excute [``offline_wav_infer.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/test_scripts/offline_wav_infer.sh)
-> [!WARNING]
-> Before executing [``offline_s2u_infer.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/test_scripts/offline_s2u_infer.sh) and [``offline_wav_infer.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/test_scripts/offline_wav_infer.sh), please ensure to replace the variables in the file with the paths specific to your machine.
 * **Evaluation**: Using Fairseq's [ASR-BLEU evaluation toolkit](https://github.com/facebookresearch/fairseq/tree/main/examples/speech_to_speech/asr_bleu)
 ### Simultaneous Inference
 * Simultaneous Inference need the SimulEval
