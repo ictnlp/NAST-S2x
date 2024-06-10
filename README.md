@@ -4,9 +4,6 @@
 </p> -->
 
 
-> [!NOTE]
-> This repo is under construction. Stay tuned.
-
 ## Features
 * 🤖 **An end-to-end model without intermediate text decoding**
 * 💪 **Supports offline and streaming decoding of all modalities**
@@ -59,16 +56,17 @@ Avant la fusion des communes, Rouge-Thier faisait partie de la commune de Louvei
 > [!NOTE]
 > We release French-to-English speech-to-speech translation models trained on the CVSS-C dataset to reproduce results in our paper. You can train models in your desired languages by following the instructions provided below.
 
+[🤗 Model card](https://huggingface.co/ICTNLP/NAST-S2X)
 | Chunk Size | checkpoint | ASR-BLEU | ASR-BLEU (Silence Removed) | Average Lagging                                                                             |
 | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |---------------------------------------------------------------- |
-| 320ms    | [🤗 Model card](https://huggingface.co/ictnlp) - [checkpoint](https://huggingface.co/ictnlp) | 19.67 |  24.90 | -393ms  |
-| 1280ms    | [🤗 Model card](https://huggingface.co/ictnlp) - [checkpoint](https://huggingface.co/ictnlp) | 20.20 | 25.71 | 3330ms |
-| 2560ms    | [🤗 Model card](https://huggingface.co/ictnlp) - [checkpoint](https://huggingface.co/ictnlp) | 24.88 | 26.14 |  4976ms  |
-| Offline    | [🤗 Model card](https://huggingface.co/ictnlp) - [checkpoint](https://huggingface.co/ictnlp) | 25.82 | -  | -   |
+| 320ms    |  [checkpoint](https://huggingface.co/ICTNLP/NAST-S2X/blob/main/chunk_320ms.pt) | 19.67 |  24.90 | -393ms  |
+| 1280ms    | [checkpoint](https://huggingface.co/ICTNLP/NAST-S2X/blob/main/chunk_1280ms.pt) | 20.20 | 25.71 | 3330ms |
+| 2560ms    | [checkpoint](https://huggingface.co/ICTNLP/NAST-S2X/blob/main/chunk_2560ms.pt) | 24.88 | 26.14 |  4976ms  |
+| Offline    | [checkpoint](https://huggingface.co/ICTNLP/NAST-S2X/blob/main/Offline.pt) | 25.82 | -  | -   |
 
-| Quantizer | Vocoder |
-| --- | --- |
-|[checkpoint](https://huggingface.co/ictnlp) | [checkpoint](https://huggingface.co/ictnlp)|
+| Vocoder |
+| --- |
+| [checkpoint](https://huggingface.co/ICTNLP/NAST-S2X/tree/main/vocoder)|
 
 ## Inference
 > [!WARNING]
@@ -108,7 +106,7 @@ fang2024ctcs2ut,
 title={CTC-based Non-autoregressive Textless Speech-to-Speech Translation},
 author={Fang, Qingkai and Ma, Zhengrui and Zhou, Yan and Zhang, Min and Feng, Yang
 },
-booktitle={Proceedings of ACL 2024},
+booktitle={Findings of ACL 2024},
 year={2024},
 }
 ```
