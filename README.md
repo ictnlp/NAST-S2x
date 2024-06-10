@@ -3,6 +3,8 @@
 <img src="https://github.com/ictnlp/NAST-S2x/assets/43530347/02d6dea6-5887-459e-9938-bc510b6c850c"/>  
 </p> -->
 
+## News🔥
+*  **We have released the checkpoints and datasets for reference at [Hugging Face🤗](https://huggingface.co/ICTNLP/NAST-S2X/tree/main). We will soon provide a guide on how to use the dataset and construct your own.**
 
 ## Features
 * 🤖 **An end-to-end model without intermediate text decoding**
