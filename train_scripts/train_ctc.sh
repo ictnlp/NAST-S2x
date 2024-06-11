@@ -5,7 +5,7 @@ CHECKPOINT_DIR=path_to_save_your_checkpoint
 ENCODER_PRETRAINED_PATH=path_to_your_pretrained_encoder
 NAST_DIR=path_to_nast_dir
 
-fairseq-train ${CVSS_ROOT}/fr-en/fbank2unit \
+fairseq-train ${CVSS_ROOT} \
     --config-yaml config.yaml --train-subset train --valid-subset dev \
     --user-dir ${NAST_DIR} \
     --fp16 \
