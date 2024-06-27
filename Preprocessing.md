@@ -5,15 +5,39 @@
 We release all the processed dataset used in our expeiments in https://huggingface.co/ICTNLP/NAST-S2X/tree/main/data
 
 
-You need the following ```config.yaml``` file in the main directory of the CVSS-C data (This path should be the same to ```CVSS_ROOT``` variable in training and testing scripts.); you need to replace the placeholder with your local paths; all the files can be downloaded from this [URL](https://huggingface.co/ICTNLP/NAST-S2X/tree/main/data).
+## How to use the datasets?
+**You need to organize your data as follows:**
 
-Config file:
+```
+$CVSS_ROOT
+└── fr-en
+    ├── gcmvn.npz            
+    ├── src_fbank80.zip
+    └── fbank2unit
+    |        └── config.yaml
+    |        ├── train.tsv
+    |        ├── test.tsv
+    |        ├── dev.tsv
+    |        ├── spm_unigram10000.model
+    |        ├── spm_unigram10000.txt             
+    |        └── spm_unigram10000.vocab
+    └── vocoder
+             └── mhubert_lyr11_km1000_en
+                              ├── config.json 
+                              └── g_00500000
+```
+```$CVSS_ROOT``` should match the paths used in the training and testing scripts.
+
+
+All files can be downloaded from this [URL](https://huggingface.co/ICTNLP/NAST-S2X/tree/main/data) except for ```config.yaml``` and ```src_fbank80.zip```. 
+
+We have provided a sample ```config.yaml``` file below. You may need to modify some of the path according to your situation.
 ```
 bpe_tokenizer:
   bpe: sentencepiece
-  sentencepiece_model: /path_to_your_data/spm_unigram10000.model
+  sentencepiece_model: $CVSS_ROOT/fr-en/fbank2unit/spm_unigram10000.model
 global_cmvn:
-  stats_npz_path: /path_to_your_data/gcmvn.npz
+  stats_npz_path: $CVSS_ROOT/fr-en/gcmvn.npz
 input_channels: 1
 input_feat_per_channel: 80
 specaugment:
@@ -31,15 +55,29 @@ transforms:
   - specaugment
 vocab_filename: spm_unigram10000.txt
 vocoder:
-  checkpoint: /path_to_your_data/vocoder/mhubert_lyr11_km1000_en/g_00500000
-  config: /path_to_your_data/vocoder/mhubert_lyr11_km1000_en/config.json
+  checkpoint: $CVSS_ROOT/fr-en/vocoder/mhubert_lyr11_km1000_en/g_00500000
+  config: $CVSS_ROOT/fr-en/vocoder/mhubert_lyr11_km1000_en/config.json
   type: code_hifigan
 
 vocab_filename_src: spm_unigram10000.txt
 bpe_tokenizer_src:
   bpe: sentencepiece
-  sentencepiece_model: /path_to_your_data/spm_unigram10000.model
+  sentencepiece_model: $CVSS_ROOT/fr-en/fbank2unit/spm_unigram10000.model
 ```
+
+For the ```src_fbank80.zip``` file, use [this script](https://github.com/ictnlp/NAST-S2x/blob/main/prep_fbank.py) to create it. Below, we provide a sample for its usage.
+```
+$covost2_data_root=yourpath
+$cvssc_data_root=yourpath
+$output_root=yourpath
+
+python prep_fbank.py \
+    --covost-data-root $covost2_data_root \
+    --cvss-data-root $cvssc_data_root \
+    --output-root  $output_root \
+    --cmvn-type global
+```
+
 
 
 
