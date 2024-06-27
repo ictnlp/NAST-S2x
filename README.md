@@ -6,7 +6,7 @@
 </p> -->
 
 ## News🔥
-*  **(Latest) We have created a tutorial to guide you through preprocessing the data and running NAST-S2X on your machine. You can find it at this [URL](https://github.com/ictnlp/NAST-S2x/tree/main/preprocessing).**
+*  **(2024/06/27) We have created a tutorial to guide you through preprocessing the data and running NAST-S2X on your machine. You can find it at this [URL](https://github.com/ictnlp/NAST-S2x/tree/main/preprocessing).**
 *  **We have published our paper on arXiv, available at https://arxiv.org/abs/2406.06937.**
 *  **We have released the checkpoints and datasets for reference at [Hugging Face🤗](https://huggingface.co/ICTNLP/NAST-S2X/tree/main).**
 
