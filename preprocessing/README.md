@@ -1,8 +1,8 @@
 # Dataset Preprocessing
 > [!NOTE]
-> We will soon release a guide on how to use the dataset for inference and training, and how to construct these datasets on your own.
+> We release all the processed dataset used in our expeiments in https://huggingface.co/ICTNLP/NAST-S2X/tree/main/data.
 
-We release all the processed dataset used in our expeiments in https://huggingface.co/ICTNLP/NAST-S2X/tree/main/data
+
 
 
 ## How to use the datasets?
@@ -65,7 +65,7 @@ bpe_tokenizer_src:
   sentencepiece_model: $CVSS_ROOT/fr-en/fbank2unit/spm_unigram10000.model
 ```
 
-For the ```src_fbank80.zip``` file, use [this script](https://github.com/ictnlp/NAST-S2x/blob/main/prep_fbank.py) to create it. Below, we provide a sample for its usage.
+For the ```src_fbank80.zip``` file, use [this script](https://github.com/ictnlp/NAST-S2x/blob/main/preprocessing/prep_fbank.py) to create it. Below, we provide a sample for its usage.
 ```
 $covost2_data_root=yourpath
 $cvssc_data_root=yourpath
