@@ -13,7 +13,7 @@ $CVSS_ROOT
 └── fr-en
     ├── gcmvn.npz            
     ├── src_fbank80.zip
-    └── fbank2unit
+    ├── fbank2unit
     |        └── config.yaml
     |        ├── train.tsv
     |        ├── test.tsv
@@ -21,6 +21,15 @@ $CVSS_ROOT
     |        ├── spm_unigram10000.model
     |        ├── spm_unigram10000.txt             
     |        └── spm_unigram10000.vocab
+    |
+    ├── simultaneous_inference
+    |        ├── test.en
+    |        ├── test.wav_list        
+    |        └── audio
+    |               ├── common_voice_fr_17299399.mp3
+    |               ├── ......
+    |               └── common_voice_fr_20046123.mp3
+    |
     └── vocoder
              └── mhubert_lyr11_km1000_en
                               ├── config.json 
@@ -77,6 +86,8 @@ python prep_fbank.py \
     --output-root  $output_root \
     --cmvn-type global
 ```
+
+For simultaneous inference, please first unzip the provided ```audio.zip``` [file](https://huggingface.co/ICTNLP/NAST-S2X/blob/main/data/simultaneous_inference/audio.zip) in the same directory.
 
 
 
