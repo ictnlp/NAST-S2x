@@ -3,8 +3,6 @@
 #
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
-import pdb
-import os
 import argparse
 import logging
 from pathlib import Path
@@ -19,21 +17,14 @@ from torch import Tensor
 from torch.utils.data import Dataset
 from torchaudio.datasets.utils import download_url, extract_archive
 from tqdm import tqdm
+import numpy as np
 
 from fairseq.data.audio.audio_utils import convert_waveform
-from examples.speech_synthesis.data_utils import extract_logmel_spectrogram
-from examples.speech_to_speech.preprocessing.data_utils import (
-    gen_config_yaml,
-    load_units,
-    process_units,
-)
+
 from examples.speech_to_text.data_utils import (
     create_zip,
     extract_fbank_features,
-    gen_vocab,
-    get_zip_manifest,
     load_df_from_tsv,
-    save_df_to_tsv,
     cal_gcmvn_stats,
 )
 
@@ -256,12 +247,10 @@ class CVSS_C(CoVoST):
 def process(args):
     output_root = Path(args.output_root)
     output_root.mkdir(exist_ok=True)
-    src_type = "audio" if args.use_audio_input else "fbank"
-    tgt_type = "spec" if args.target_type == "spec" else "unit"
-    output_tsv_dir = output_root / f"{src_type}2{tgt_type}"
+    output_tsv_dir = output_root / "fbank2unit"
     output_tsv_dir.mkdir(exist_ok=True)
 
-    source_root = output_root / ("src_flac" if args.use_audio_input else "src_fbank80")
+    source_root = output_root / "src_fbank80"
     source_zip_path = output_root / f"{source_root.name}.zip"
     if source_zip_path.exists():
         print(f"{source_zip_path} exists.")
@@ -279,82 +268,34 @@ def process(args):
             
             print(f"Extracting source audio/features for {src_lang}-en...")
             for split in ["dev", "test"]:
-            #for split in CoVoST.SPLITS:
                 dataset = CVSS_C(cvss_root, covost_root, split, src_lang, "en")
-                if args.use_audio_input:
-                    for waveform, sample_rate, _, _, _, _, _, utt_id in tqdm(dataset):
-                        src_sample_rate = 16_000
-                        waveform, sample_rate = convert_waveform(
-                            waveform, sample_rate, to_mono=True,
-                            to_sample_rate=src_sample_rate
-                        )
-                        sf.write(
-                            (source_root / f"{utt_id}.flac").as_posix(),
-                            waveform.T.numpy(), sample_rate,
-                        )
-                else:
-                    gcmvn_feature_list = []
-                    for waveform, sample_rate, _, _, _, _, _, utt_id in tqdm(dataset):
-                        src_sample_rate = 16_000
-                        waveform, sample_rate = convert_waveform(
-                            waveform, sample_rate, to_mono=True,
-                            to_sample_rate=src_sample_rate
-                        )
-                        features = extract_fbank_features(
-                            waveform, sample_rate, source_root / f"{utt_id}.npy"
-                        )
-                                                
-                        if split == 'train' and args.cmvn_type == "global":
-                            if len(gcmvn_feature_list) < args.gcmvn_max_num:
-                                gcmvn_feature_list.append(features)
-
+                
+                
+                gcmvn_feature_list = []
+                for waveform, sample_rate, _, _, _, _, _, utt_id in tqdm(dataset):
+                    src_sample_rate = 16_000
+                    waveform, sample_rate = convert_waveform(
+                        waveform, sample_rate, to_mono=True,
+                        to_sample_rate=src_sample_rate
+                    )
+                    features = extract_fbank_features(
+                        waveform, sample_rate, source_root / f"{utt_id}.npy"
+                    )
+                                            
                     if split == 'train' and args.cmvn_type == "global":
-                        # Estimate and save cmv
-                        stats = cal_gcmvn_stats(gcmvn_feature_list)
-                        with open(output_root / "gcmvn.npz", "wb") as f:
-                            np.savez(f, mean=stats["mean"], std=stats["std"])
+                        if len(gcmvn_feature_list) < args.gcmvn_max_num:
+                            gcmvn_feature_list.append(features)
+
+                if split == 'train' and args.cmvn_type == "global":
+                    # Estimate and save cmv
+                    stats = cal_gcmvn_stats(gcmvn_feature_list)
+                    with open(output_root / "gcmvn.npz", "wb") as f:
+                        np.savez(f, mean=stats["mean"], std=stats["std"])
 
         print("ZIPing source audios/features...")
         create_zip(source_root, source_zip_path)
-        #shutil.rmtree(source_root)
+        shutil.rmtree(source_root)
     
-    print("Fetching ZIP manifest...")
-    src_audio_paths, src_audio_lengths = get_zip_manifest(
-        source_zip_path,
-        is_audio=args.use_audio_input,
-    )
-
-    if args.target_type == "spec":
-        target_root = output_root / "tgt_logmelspec80"
-        target_zip_path = output_root / f"{target_root.name}.zip"
-        if target_zip_path.exists():
-            print(f"{target_zip_path} exists.")
-        else:
-            print("Extracting target features...")
-            target_root.mkdir(exist_ok=True)
-
-            for src_lang in CoVoST.XX_EN_LANGUAGES[2]:
-                covost_root = Path(args.covost_data_root) / src_lang
-                cvss_root = Path(args.cvss_data_root) / f"{src_lang}-en"
-
-                print(f"Extracting target audio/features for {src_lang}-en...")
-                for split in CoVoST.SPLITS:
-                    dataset = CVSS_C(cvss_root, covost_root, split, src_lang, "en")
-                    for _, _, waveform, sample_rate, _, _, _, utt_id in tqdm(dataset):
-                        waveform, sample_rate = convert_waveform(
-                            waveform, sample_rate, normalize_volume=args.normalize_volume,
-                            to_sample_rate=args.target_sample_rate
-                        )
-                        extract_logmel_spectrogram(
-                            waveform, sample_rate, target_root / f"{utt_id}.npy",
-                            win_length=args.win_length, hop_length=args.hop_length,
-                            n_fft=args.n_fft, n_mels=args.n_mels, f_min=args.f_min,
-                            f_max=args.f_max
-                        )
-                        
-            print("ZIPing target features...")
-            create_zip(target_root, target_zip_path)
-            shutil.rmtree(target_root)
 
 
 def main():
@@ -370,46 +311,6 @@ def main():
     parser.add_argument(
         "--output-root", required=True, type=str,
         help="output root",
-    )
-    parser.add_argument(
-        "--vocab-type",
-        default="unigram",
-        required=True,
-        type=str,
-        choices=["bpe", "unigram", "char"],
-    )
-    parser.add_argument("--vocab-size", default=8000, type=int)
-    parser.add_argument("--use-audio-input", action="store_true")
-    parser.add_argument(
-        "--target-type", default="spec",
-        choices=["unit", "spec"],
-        help="type of target speech",
-    )
-    # s2spect args
-    parser.add_argument("--win-length", type=int, default=1024)
-    parser.add_argument("--hop-length", type=int, default=256)
-    parser.add_argument("--n-fft", type=int, default=1024)
-    parser.add_argument("--n-mels", type=int, default=80)
-    parser.add_argument("--f-min", type=int, default=20)
-    parser.add_argument("--f-max", type=int, default=8000)
-    parser.add_argument("--target-sample-rate", type=int, default=22050)
-    parser.add_argument("--normalize-volume", "-n", action="store_true")
-    # s2ut args
-    parser.add_argument(
-        "--unit-type", default="km100",
-        choices=["km100", "km1000", "sn", "bip"],
-        help="type of target units; km: kmeans, sn: speaker normalization (Lee et al., 2022b), bip: biliteral perturbation (Huang et al., 2023).",
-    )
-    parser.add_argument(
-        "--reduce-unit",
-        action="store_true",
-        help="reduce a target unit sequence to a unique unit sequence, i.e. '1 1 1 2 2' -> '1 2'",
-    )
-    parser.add_argument(
-        "--vocoder-checkpoint", default=None, type=str, help="vocoder checkpoint"
-    )
-    parser.add_argument(
-        "--vocoder-cfg", default=None, type=str, help="vocoder config file"
     )
 
     parser.add_argument(
