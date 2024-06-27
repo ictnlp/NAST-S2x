@@ -1,11 +1,12 @@
-VOCODER_CKPT=path_to_your/mhubert_lyr11_km1000_en/g_00500000
-VOCODER_CFG=path_to_your/mhubert_lyr11_km1000_en/config.json
-
 CVSS_ROOT=path_to_your_data
-CHUNK_SIZE=32  #set based on your model
-CKPT_PATH=path_to_your_model
+
+VOCODER_CKPT=${CVSS_ROOT}/vocoder/mhubert_lyr11_km1000_en/g_00500000
+VOCODER_CFG=${CVSS_ROOT}/vocoder/mhubert_lyr11_km1000_en/config.json
+
+CHUNK_SIZE=32  #This is an example, should be modified according to your model
+CKPT_PATH=path_to_your_model #This is the path to your checkpoint
 OUT_ROOT=path_to_your_output
-NAST_DIR=path_to_nast_dir
+NAST_DIR=path_to_nast_dir  #This is the path of our provided nast as a plugin to Fairseq
 
 SEGMENT_SIZE=${CHUNK_SIZE}0
 

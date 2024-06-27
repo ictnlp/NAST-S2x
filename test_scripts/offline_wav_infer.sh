@@ -1,7 +1,10 @@
-IN_ROOT=path_to_your_input
+CVSS_ROOT=path_to_your_data
+
+IN_ROOT=path_to_your_input  #This is the path of the output of scripts ``offline_s2u_infer.sh``
 OUT_ROOT=path_to_your_output
-VOCODER_CKPT=path_to_your/mhubert_lyr11_km1000_en/g_00500000
-VOCODER_CFG=path_to_your/mhubert_lyr11_km1000_en/config.json
+
+VOCODER_CKPT=${CVSS_ROOT}/vocoder/mhubert_lyr11_km1000_en/g_00500000
+VOCODER_CFG=${CVSS_ROOT}/vocoder/mhubert_lyr11_km1000_en/config.json
 
 grep "^Unit\-" ${IN_ROOT} | \
   sed 's/^Unit-//ig' | sort -nk1 | cut -f3 \
