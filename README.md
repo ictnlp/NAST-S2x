@@ -89,6 +89,17 @@ Avant la fusion des communes, Rouge-Thier faisait partie de la commune de Louvei
 * **Streaming Generation and Evaluation**: Execute [``streaming_infer.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/test_scripts/streaming_infer.sh)
 
 ## Train your own NAST-S2X
+**Generally, you should use these CLI commands for different purposes.**
+
+| Training Stage | CLI Commands|
+| ----------------------- | ------- |
+|*ASR Pretrain* | ```--arch nonautoregressive_streaming_speech_transformer_segment_to_segment```<br> ```--task nat_speech_to_text_ctc_modified``` <br> ```--criterion nat_loss_ngram_glat_asr```|
+| *Speech-to-Unit Training* | ```--arch nonautoregressive_streaming_speech_to_unit_transformer_segment_to_segment```<br> ```--task nat_speech_to_unit_ctc_modified``` <br> ```--criterion nat_loss_ngram_glat_s2u```|
+| *Speech-to-Text Training* | ```--arch nonautoregressive_streaming_speech_transformer_segment_to_segment```<br> ```--task nat_speech_to_text_ctc_modified``` <br> ```--criterion nat_loss_ngram_glat```|
+
+  
+**The detailed training scripts are provided for your reference.**
+
 * **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/tree/main/preprocessing).
 * **Encoder Pretraining**: Execute [``pretrain_encoder.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/train_scripts/pretrain_encoder.sh)
 * **CTC Pretraining**: Execute [``train_ctc.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/train_scripts/train_ctc.sh)
