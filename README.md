@@ -90,6 +90,7 @@ Avant la fusion des communes, Rouge-Thier faisait partie de la commune de Louvei
 
 ## Train your own NAST-S2X
 * **Data preprocessing**: Follow the instructions in the [document](https://github.com/ictnlp/NAST-S2x/tree/main/preprocessing).
+* **Encoder Pretraining**: Execute [``pretrain_encoder.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/train_scripts/pretrain_encoder.sh)
 * **CTC Pretraining**: Execute [``train_ctc.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/train_scripts/train_ctc.sh)
 * **NMLA Training**: Execute [``train_nmla.sh``](https://github.com/ictnlp/NAST-S2x/blob/main/train_scripts/train_nmla.sh)
 
