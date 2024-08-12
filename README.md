@@ -8,8 +8,6 @@
 ## Speech-to-Speech Demo
 #### We present an example of French-to-English translation using chunk sizes of 320 ms, 2560 ms, and in offline conditions.
 #### More examples can be found in https://nast-s2x.github.io/.
-* Generation with chunk sizes of 320 ms and 2560 ms starts generating English translation before the source speech is complete.
-* In the examples of simultaneous interpretation, the left audio channel is the input streaming speech, and the right audio channel is the simultaneous translation.
   
 Chunk Size 320ms            |  Chunk Size 2560ms |  Offline
 :-------------------------:|:-------------------------: |:-------------------------:
