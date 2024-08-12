@@ -31,7 +31,7 @@ Source Speech Transcript            |  Reference Text Translation
 Avant la fusion des communes, Rouge-Thier faisait partie de la commune de Louveigné.| before the fusion of the towns rouge thier was a part of the town of louveigne
 
 > [!NOTE]
-> For more examples, please check https://nast-s2x.github.io/.
+> **For more examples, please check https://nast-s2x.github.io/.**
 
 ## Performance
 
