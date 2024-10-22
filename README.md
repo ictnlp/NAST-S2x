@@ -1,4 +1,4 @@
-# NAST-S2X: A Fast and End-to-End Simultaneous Speech-to-Any Translation Model
+# NAST-S2X: A Fast and End-to-End Simultaneous Speech-to-Speech Translation Model
 [![arXiv](https://img.shields.io/badge/arXiv-2406.06937-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2406.06937)
 [![model](https://img.shields.io/badge/%F0%9F%A4%97%20-NAST_S2X-blue.svg)](https://huggingface.co/ICTNLP/NAST-S2X)
 <!--<p align="center">
